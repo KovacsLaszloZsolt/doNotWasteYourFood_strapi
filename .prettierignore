@@ -1,0 +1,6 @@
+# Build artifacts
+.cache
+types/generated
+.tmp
+node_modules
+dist
