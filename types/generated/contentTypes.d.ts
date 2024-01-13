@@ -285,6 +285,34 @@ export interface AdminTransferTokenPermission extends Schema.CollectionType {
 	};
 }
 
+export interface ApiCategoryCategory extends Schema.CollectionType {
+	collectionName: 'categories';
+	info: {
+		singularName: 'category';
+		pluralName: 'categories';
+		displayName: 'category';
+		description: '';
+	};
+	options: {
+		draftAndPublish: false;
+	};
+	attributes: {
+		name: Attribute.String &
+			Attribute.Required &
+			Attribute.Unique &
+			Attribute.SetMinMaxLength<{
+				minLength: 1;
+				maxLength: 255;
+			}>;
+		owner: Attribute.Relation<'api::category.category', 'manyToOne', 'plugin::users-permissions.user'>;
+		foods: Attribute.Relation<'api::category.category', 'oneToMany', 'api::food.food'>;
+		createdAt: Attribute.DateTime;
+		updatedAt: Attribute.DateTime;
+		createdBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private;
+		updatedBy: Attribute.Relation<'api::category.category', 'oneToOne', 'admin::user'> & Attribute.Private;
+	};
+}
+
 export interface ApiFoodFood extends Schema.CollectionType {
 	collectionName: 'foods';
 	info: {
@@ -306,6 +334,7 @@ export interface ApiFoodFood extends Schema.CollectionType {
 		expireDate: Attribute.Date & Attribute.Required;
 		owner: Attribute.Relation<'api::food.food', 'manyToOne', 'plugin::users-permissions.user'>;
 		isEaten: Attribute.Boolean & Attribute.Required & Attribute.DefaultTo<false>;
+		category: Attribute.Relation<'api::food.food', 'manyToOne', 'api::category.category'>;
 		createdAt: Attribute.DateTime;
 		updatedAt: Attribute.DateTime;
 		createdBy: Attribute.Relation<'api::food.food', 'oneToOne', 'admin::user'> & Attribute.Private;
@@ -500,6 +529,7 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
 		blocked: Attribute.Boolean & Attribute.DefaultTo<false>;
 		role: Attribute.Relation<'plugin::users-permissions.user', 'manyToOne', 'plugin::users-permissions.role'>;
 		foods: Attribute.Relation<'plugin::users-permissions.user', 'oneToMany', 'api::food.food'>;
+		categories: Attribute.Relation<'plugin::users-permissions.user', 'oneToMany', 'api::category.category'>;
 		createdAt: Attribute.DateTime;
 		updatedAt: Attribute.DateTime;
 		createdBy: Attribute.Relation<'plugin::users-permissions.user', 'oneToOne', 'admin::user'> & Attribute.Private;
@@ -551,6 +581,7 @@ declare module '@strapi/types' {
 			'admin::api-token-permission': AdminApiTokenPermission;
 			'admin::transfer-token': AdminTransferToken;
 			'admin::transfer-token-permission': AdminTransferTokenPermission;
+			'api::category.category': ApiCategoryCategory;
 			'api::food.food': ApiFoodFood;
 			'plugin::upload.file': PluginUploadFile;
 			'plugin::upload.folder': PluginUploadFolder;

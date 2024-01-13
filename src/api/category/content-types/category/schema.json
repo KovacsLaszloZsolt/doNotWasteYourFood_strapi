@@ -1,10 +1,10 @@
 {
 	"kind": "collectionType",
-	"collectionName": "foods",
+	"collectionName": "categories",
 	"info": {
-		"singularName": "food",
-		"pluralName": "foods",
-		"displayName": "Food",
+		"singularName": "category",
+		"pluralName": "categories",
+		"displayName": "category",
 		"description": ""
 	},
 	"options": {
@@ -15,29 +15,21 @@
 		"name": {
 			"type": "string",
 			"required": true,
+			"unique": true,
 			"minLength": 1,
 			"maxLength": 255
-		},
-		"expireDate": {
-			"type": "date",
-			"required": true
 		},
 		"owner": {
 			"type": "relation",
 			"relation": "manyToOne",
 			"target": "plugin::users-permissions.user",
-			"inversedBy": "foods"
+			"inversedBy": "categories"
 		},
-		"isEaten": {
-			"type": "boolean",
-			"default": false,
-			"required": true
-		},
-		"category": {
+		"foods": {
 			"type": "relation",
-			"relation": "manyToOne",
-			"target": "api::category.category",
-			"inversedBy": "foods"
+			"relation": "oneToMany",
+			"target": "api::food.food",
+			"mappedBy": "category"
 		}
 	}
 }

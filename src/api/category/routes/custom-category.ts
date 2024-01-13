@@ -2,48 +2,40 @@ export default {
 	routes: [
 		{
 			method: 'GET',
-			path: '/foods',
-			handler: 'food.find',
+			path: '/categories',
+			handler: 'category.find',
 			config: {
 				policies: ['global::isOwner']
 			}
 		},
 		{
 			method: 'GET',
-			path: '/foods/recipe',
-			handler: 'food.recipe',
-			config: {
-				policies: ['global::isOwner']
-			}
-		},
-		{
-			method: 'GET',
-			path: '/foods/:id',
-			handler: 'food.findOne',
+			path: '/categories/:id',
+			handler: 'category.findOne',
 			config: {
 				policies: ['global::isOwner']
 			}
 		},
 		{
 			method: 'POST',
-			path: '/foods',
-			handler: 'food.create',
+			path: '/categories',
+			handler: 'category.create',
 			config: {
 				policies: ['global::isOwner']
 			}
 		},
 		{
 			method: 'PUT',
-			path: '/foods',
-			handler: 'food.update',
+			path: '/categories',
+			handler: 'category.update',
 			config: {
 				policies: ['global::isOwner']
 			}
 		},
 		{
 			method: 'DELETE',
-			path: '/foods',
-			handler: 'food.delete',
+			path: '/categories',
+			handler: 'category.delete',
 			config: {
 				policies: ['global::isOwner']
 			}

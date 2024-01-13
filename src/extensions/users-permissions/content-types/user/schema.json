@@ -71,6 +71,12 @@
 			"relation": "oneToMany",
 			"target": "api::food.food",
 			"mappedBy": "owner"
+		},
+		"categories": {
+			"type": "relation",
+			"relation": "oneToMany",
+			"target": "api::category.category",
+			"mappedBy": "owner"
 		}
 	}
 }
